@@ -1,6 +1,7 @@
 .post-item {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
+    border-radius: 13px;
     padding: 10px;
     margin-bottom: 10px;
   }

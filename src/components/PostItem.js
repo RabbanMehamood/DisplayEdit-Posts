@@ -1,6 +1,7 @@
 // PostItem.js
 import React, {useState} from 'react';
 import './PostItem.css'; // Import the CSS file for styling
+import './PostEdit.css';
 const PostItem = ({ post, onEdit}) => {
   const [isEditing,setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(post.title);
@@ -15,7 +16,7 @@ const PostItem = ({ post, onEdit}) => {
   };
   if(isEditing){
     return(
-      <div>
+      <div className='edit-form'>
         <input 
         type = "text"
         value= {updatedTitle}

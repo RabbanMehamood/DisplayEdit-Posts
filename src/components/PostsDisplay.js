@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {useDispatch } from 'react-redux';
 import {editPost} from '../redux/actions';
 import PostItem from './PostItem';
+import "./PostDisplay.css";
 
 const PostsDisplay = () => {
   const [fetchdata,setFetchdata]=useState([])
@@ -46,9 +47,11 @@ setFetchdata(data)
   return (
     <div>
       <h2>All Posts</h2>
+      <div className='posts-display'>
       {fetchdata.map(post => (
         <PostItem key={post.id} post={post} onEdit={handleEdit} />
       ))}
+      </div>
     </div>
   );
 };
