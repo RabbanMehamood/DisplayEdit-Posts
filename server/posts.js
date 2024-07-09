@@ -1,46 +1,51 @@
 const express = require('express');
 const router = express.Router();
 
-// Example data (simulating a database)
 let posts = [
   { id: 1, title: 'Post 1', content: 'Content of Post 1' },
   { id: 2, title: 'Post 2', content: 'Content of Post 2' },
+  { id: 3, title: 'Post 3', content: 'Content of Post 3' }
 ];
 
-// GET /api/posts - Get all posts
+// GET all posts
 router.get('/', (req, res) => {
-    
-  res.json(...posts);
+  res.status(200).json(posts);
 });
 
-// POST /api/posts - Create a new post
+// ADD a new post
 router.post('/', (req, res) => {
   const { title, content } = req.body;
-  const newPost = { id: posts.length + 1, title, content };
+  const newPost = {
+    id: posts.length + 1,
+    title,
+    content
+  };
   posts.push(newPost);
   res.status(201).json(newPost);
-})
+});
 
-// PUT /api/posts/:id - Update a post
+// EDIT an existing post
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
-  const index = posts.findIndex(post => post.id === parseInt(id));
-  if (index !== -1) {
-    posts[index] = { id: parseInt(id), title, content };
-    res.json(posts[index]);
+  const postIndex = posts.findIndex(post => post.id === parseInt(id));
+
+  if (postIndex !== -1) {
+    posts[postIndex] = { id: parseInt(id), title, content };
+    res.status(200).json(posts[postIndex]);
   } else {
     res.status(404).json({ message: 'Post not found' });
   }
 });
 
-// DELETE /api/posts/:id - Delete a post
+// DELETE a post
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  const index = posts.findIndex(post => post.id === parseInt(id));
-  if (index !== -1) {
-    posts.splice(index, 1);
-    res.json({ message: 'Post deleted' });
+  const postIndex = posts.findIndex(post => post.id === parseInt(id));
+
+  if (postIndex !== -1) {
+    posts.splice(postIndex, 1);
+    res.status(204).send();
   } else {
     res.status(404).json({ message: 'Post not found' });
   }

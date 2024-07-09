@@ -1,7 +1,7 @@
 // PostsDisplay.js
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../redux/actions';
+import {useDispatch } from 'react-redux';
+import {editPost} from '../redux/actions';
 import PostItem from './PostItem';
 
 const PostsDisplay = () => {
@@ -19,6 +19,13 @@ setFetchdata(data)
       console.log('err',err);
     }
   }
+
+  const handleEdit = (id,updatedPost) => {
+    dispatch(editPost(id,updatedPost))
+    window.location.reload()
+    .catch(error =>console.error('Error editing post:',error));
+  }
+  // console.log('Posts in PostsDisplay:',posts);
 
   
 
@@ -40,7 +47,7 @@ setFetchdata(data)
     <div>
       <h2>All Posts</h2>
       {fetchdata.map(post => (
-        <PostItem key={post.id} post={post} />
+        <PostItem key={post.id} post={post} onEdit={handleEdit} />
       ))}
     </div>
   );
